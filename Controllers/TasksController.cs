@@ -47,10 +47,10 @@ public class TasksController : ControllerBase
     {
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
-    
+
         var success = _service.UpdateTask(id, updateDto.Title, updateDto.IsCompleted);
         if (!success) return NotFound();
-    
+
         return NoContent();
     }
 

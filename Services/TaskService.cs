@@ -1,6 +1,6 @@
 using _net_taskApiSimple.Models;
 using _net_taskApiSimple.Repositories;
-
+using _net_taskApiSimple.DTOs;
 namespace _net_taskApiSimple.Services;
 
 public class TaskService
@@ -13,20 +13,44 @@ public class TaskService
         _repository = repository;
     }
 
-    public List<TaskItem> GetTasks()
+    public List<TaskResponseDto> GetTasks()
     {
-        return _repository.GetAll();
+        // Her TaskItem öğesini TaskResponseDto'ya dönüştürür - 	Liste olarak döndürür
+        return _repository.GetAll()
+            .Select(task => new TaskResponseDto
+            {
+                Id = task.Id,
+                Title = task.Title,
+                IsCompleted = task.IsCompleted
+            }).ToList();
     }
 
-    public TaskItem? GetTaskById(int id)
+
+    public TaskResponseDto? GetTaskById(int id)
     {
-        return _repository.GetById(id);
+        var task = _repository.GetById(id);
+        if (task == null) return null;
+
+        return new TaskResponseDto
+        {
+            Id = task.Id,
+            Title = task.Title,
+            IsCompleted = task.IsCompleted
+        };
     }
 
-    public TaskItem CreateTask(string title)
+
+    public TaskResponseDto CreateTask(string title)
     {
-        return _repository.Add(title);
+        var task = _repository.Add(title);
+        return new TaskResponseDto
+        {
+            Id = task.Id,
+            Title = task.Title,
+            IsCompleted = task.IsCompleted
+        };
     }
+
 
     public bool UpdateTask(int id, string title, bool isCompleted)
     {
