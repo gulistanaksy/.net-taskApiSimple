@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using _net_taskApiSimple.Models;
 using _net_taskApiSimple.Services;
+using _net_taskApiSimple.DTOs;
 
 namespace _net_taskApiSimple.Controllers;
 
@@ -31,20 +32,21 @@ public class TasksController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult Create([FromBody] string title)
+    public IActionResult Create([FromBody] CreateTaskDto createDto)
     {
-        var task = _service.CreateTask(title);
+        var task = _service.CreateTask(createDto.Title);
         return Ok(task);
     }
 
     [HttpPut("{id}")]
-    public IActionResult Update(int id, [FromBody] TaskItem updatedTask)
+    public IActionResult Update(int id, [FromBody] UpdateTaskDto updateDto)
     {
-        var success = _service.UpdateTask(id, updatedTask.Title, updatedTask.IsCompleted);
+        var success = _service.UpdateTask(id, updateDto.Title, updateDto.IsCompleted);
         if (!success) return NotFound();
-
+    
         return NoContent();
     }
+
 
     [HttpDelete("{id}")]
     public IActionResult Delete(int id)
