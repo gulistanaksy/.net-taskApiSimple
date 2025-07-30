@@ -34,18 +34,26 @@ public class TasksController : ControllerBase
     [HttpPost]
     public IActionResult Create([FromBody] CreateTaskDto createDto)
     {
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
+
         var task = _service.CreateTask(createDto.Title);
         return Ok(task);
     }
 
+
     [HttpPut("{id}")]
     public IActionResult Update(int id, [FromBody] UpdateTaskDto updateDto)
     {
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
+    
         var success = _service.UpdateTask(id, updateDto.Title, updateDto.IsCompleted);
         if (!success) return NotFound();
     
         return NoContent();
     }
+
 
 
     [HttpDelete("{id}")]
