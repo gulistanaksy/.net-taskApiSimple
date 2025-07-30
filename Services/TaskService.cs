@@ -1,29 +1,26 @@
 using _net_taskApiSimple.Models;
 using _net_taskApiSimple.Repositories;
 using _net_taskApiSimple.DTOs;
+using AutoMapper;
 namespace _net_taskApiSimple.Services;
 
 public class TaskService
 {
     // readonly olduğu için sadece constructor’da atanabilir ve sonrasında değiştirilemez.
     private readonly TaskRepository _repository;
-
-    public TaskService(TaskRepository repository)
+    private readonly IMapper _mapper;
+    public TaskService(TaskRepository repository, IMapper mapper)
     {
         _repository = repository;
+        _mapper = mapper;
     }
 
     public List<TaskResponseDto> GetTasks()
     {
-        // Her TaskItem öğesini TaskResponseDto'ya dönüştürür - 	Liste olarak döndürür
-        return _repository.GetAll()
-            .Select(task => new TaskResponseDto
-            {
-                Id = task.Id,
-                Title = task.Title,
-                IsCompleted = task.IsCompleted
-            }).ToList();
+        var tasks = _repository.GetAll();
+        return _mapper.Map<List<TaskResponseDto>>(tasks);
     }
+
 
 
     public TaskResponseDto? GetTaskById(int id)
@@ -31,25 +28,17 @@ public class TaskService
         var task = _repository.GetById(id);
         if (task == null) return null;
 
-        return new TaskResponseDto
-        {
-            Id = task.Id,
-            Title = task.Title,
-            IsCompleted = task.IsCompleted
-        };
+        return _mapper.Map<TaskResponseDto>(task);
     }
+
 
 
     public TaskResponseDto CreateTask(string title)
     {
         var task = _repository.Add(title);
-        return new TaskResponseDto
-        {
-            Id = task.Id,
-            Title = task.Title,
-            IsCompleted = task.IsCompleted
-        };
+        return _mapper.Map<TaskResponseDto>(task);
     }
+
 
 
     public bool UpdateTask(int id, string title, bool isCompleted)

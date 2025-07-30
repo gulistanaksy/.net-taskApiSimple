@@ -1,5 +1,6 @@
 using _net_taskApiSimple.Repositories;
 using _net_taskApiSimple.Services;
+using _net_taskApiSimple.Mappings; 
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,8 @@ builder.Services.AddScoped<TaskService>();
 // SwaggerGen(): Swagger arayüzü ve JSON dökümantasyonu üretir.
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddAutoMapper(typeof(TaskMappingProfile));
+
 
 // Uygulama oluşturulur ve yapılandırma tamamlanır.
 var app = builder.Build();
