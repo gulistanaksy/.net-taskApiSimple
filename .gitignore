@@ -1,0 +1,55 @@
+# Build output
+bin/
+obj/
+
+# Visual Studio dosyaları
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider IDE dosyaları
+.idea/
+
+# Paket dosyaları
+*.nupkg
+*.snupkg
+
+# Resharper
+_ReSharper*/
+*.ReSharper
+
+# DotCover
+*.dotCover
+
+# User-specific files
+*.userprefs
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# Publish çıktıları
+publish/
+
+# Azure Pipelines
+.vscode/
+
+# DotNet watch dosyaları
+*.dotnetwatch.*
+
+# Diğer
+*.log
+*.vspscc
+*.vssscc
+*.pdb
+*.cache
+*.ilk
+
+# Çevresel değişken dosyaları (env)
+.env
+.env.*
+
+# Secret files
+secrets.json
+appsettings.*.json

@@ -1,0 +1,6 @@
+@_net_taskApiSimple_HostAddress = http://localhost:5282
+
+GET {{_net_taskApiSimple_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
