@@ -1,50 +1,61 @@
 using _net_taskApiSimple.Models;
+using _net_taskApiSimple.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace _net_taskApiSimple.Repositories;
 
-//Veritabanı yok, sadece runtime süresince çalışan geçici bir liste kullanılır.
 public class TaskRepository
 {
-    private readonly List<TaskItem> _tasks = []; // readonly: Bu liste referansı değiştirilemez ama içeriği değiştirilebilir.
+    private readonly AppDbContext _context;
+
+    public TaskRepository(AppDbContext context)
+    {
+        _context = context;
+    }
 
     public List<TaskItem> GetAll()
     {
-        return _tasks;
+        return _context.Tasks.ToList();
     }
 
     public TaskItem? GetById(int id)
     {
-        return _tasks.FirstOrDefault(t => t.Id == id);
+        return _context.Tasks.FirstOrDefault(t => t.Id == id);
     }
 
     public TaskItem Add(string title)
     {
         var task = new TaskItem
         {
-            Id = _tasks.Count + 1,
-            Title = title
+            Title = title,
+            IsCompleted = false
         };
 
-        _tasks.Add(task);
+        _context.Tasks.Add(task);
+        _context.SaveChanges();
         return task;
     }
 
     public bool Update(int id, string title, bool isCompleted)
     {
-        var task = _tasks.FirstOrDefault(t => t.Id == id);
+        var task = _context.Tasks.FirstOrDefault(t => t.Id == id);
         if (task == null) return false;
 
         task.Title = title;
         task.IsCompleted = isCompleted;
+        _context.SaveChanges();
+
         return true;
     }
 
     public bool Delete(int id)
     {
-        var task = _tasks.FirstOrDefault(t => t.Id == id);
+        var task = _context.Tasks.FirstOrDefault(t => t.Id == id);
         if (task == null) return false;
 
-        _tasks.Remove(task);
+        _context.Tasks.Remove(task);
+        _context.SaveChanges();
+
         return true;
     }
 }

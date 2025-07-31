@@ -1,6 +1,7 @@
 # Build output
 bin/
 obj/
+migrations/
 
 # Visual Studio dosyaları
 .vs/

@@ -1,11 +1,13 @@
 using _net_taskApiSimple.Repositories;
 using _net_taskApiSimple.Services;
 using _net_taskApiSimple.Mappings; 
+using _net_taskApiSimple.Data;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
-builder.Services.AddSingleton<TaskRepository>();
+builder.Services.AddScoped<TaskRepository>();
 builder.Services.AddScoped<TaskService>();
 
 // EndpointsApiExplorer: API endpoint’lerini keşfetmek için kullanılır.
@@ -13,6 +15,10 @@ builder.Services.AddScoped<TaskService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(TaskMappingProfile));
+
+// AppDbContext içerisine options ile sql url veridli
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
 // Uygulama oluşturulur ve yapılandırma tamamlanır.
