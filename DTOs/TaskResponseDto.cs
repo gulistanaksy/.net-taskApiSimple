@@ -6,4 +6,5 @@ public class TaskResponseDto
     public string Title { get; set; } = string.Empty;
     public bool IsCompleted { get; set; } = false;
     public int userId { get; set; }
+    public string Username { get; set; } = null!;
 }

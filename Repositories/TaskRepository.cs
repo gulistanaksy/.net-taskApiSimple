@@ -17,12 +17,16 @@ public class TaskRepository : ITaskRepository
 
     public List<TaskItem> GetAll()
     {
-        return _context.Tasks.ToList();
+        return _context.Tasks
+            .Include(t => t.User) // kullanıcıyı da çek
+            .ToList();
     }
-
+    
     public TaskItem? GetById(int id)
     {
-        return _context.Tasks.FirstOrDefault(t => t.Id == id);
+        return _context.Tasks
+            .Include(t => t.User)
+            .FirstOrDefault(t => t.Id == id);
     }
 
     public TaskItem Add(string title, int userId)
