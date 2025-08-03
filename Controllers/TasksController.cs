@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using _net_taskApiSimple.Models;
 using _net_taskApiSimple.Services;
 using _net_taskApiSimple.DTOs;
+using _net_taskApiSimple.Interfaces;
 
 namespace _net_taskApiSimple.Controllers;
 
@@ -9,9 +10,9 @@ namespace _net_taskApiSimple.Controllers;
 [Route("api/[controller]")]  // api/tasks
 public class TasksController : ControllerBase
 {
-    private readonly TaskService _service;
+    private readonly ITaskService _service;
 
-    public TasksController(TaskService service)
+    public TasksController(ITaskService service)
     {
         _service = service;
     }

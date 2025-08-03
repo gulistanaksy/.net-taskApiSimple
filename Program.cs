@@ -18,6 +18,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(TaskMappingProfile));
 //“Biri ITaskRepository isterse, ona TaskRepository ver.”
 builder.Services.AddScoped<ITaskRepository, TaskRepository>();
+builder.Services.AddScoped<ITaskService, TaskService>();
 
 
 // AppDbContext içerisine options ile sql url veridli

@@ -5,7 +5,7 @@ using AutoMapper;
 namespace _net_taskApiSimple.Services;
 using _net_taskApiSimple.Interfaces;
 
-public class TaskService
+public class TaskService : ITaskService
 {
     // readonly olduğu için sadece constructor’da atanabilir ve sonrasında değiştirilemez.
     private readonly IMapper _mapper;
