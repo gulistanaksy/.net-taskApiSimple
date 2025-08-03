@@ -1,10 +1,12 @@
 using _net_taskApiSimple.Models;
 using _net_taskApiSimple.Data;
 using Microsoft.EntityFrameworkCore;
+using _net_taskApiSimple.Interfaces;
 
 namespace _net_taskApiSimple.Repositories;
 
-public class TaskRepository
+public class TaskRepository : ITaskRepository
+
 {
     private readonly AppDbContext _context;
 

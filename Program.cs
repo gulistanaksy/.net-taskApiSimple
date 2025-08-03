@@ -1,3 +1,4 @@
+using _net_taskApiSimple.Interfaces;
 using _net_taskApiSimple.Repositories;
 using _net_taskApiSimple.Services;
 using _net_taskApiSimple.Mappings; 
@@ -15,6 +16,9 @@ builder.Services.AddScoped<TaskService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(TaskMappingProfile));
+//“Biri ITaskRepository isterse, ona TaskRepository ver.”
+builder.Services.AddScoped<ITaskRepository, TaskRepository>();
+
 
 // AppDbContext içerisine options ile sql url veridli
 builder.Services.AddDbContext<AppDbContext>(options =>

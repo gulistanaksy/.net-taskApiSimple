@@ -3,13 +3,15 @@ using _net_taskApiSimple.Repositories;
 using _net_taskApiSimple.DTOs;
 using AutoMapper;
 namespace _net_taskApiSimple.Services;
+using _net_taskApiSimple.Interfaces;
 
 public class TaskService
 {
     // readonly olduğu için sadece constructor’da atanabilir ve sonrasında değiştirilemez.
-    private readonly TaskRepository _repository;
     private readonly IMapper _mapper;
-    public TaskService(TaskRepository repository, IMapper mapper)
+    private readonly ITaskRepository _repository;
+
+    public TaskService(ITaskRepository repository, IMapper mapper)
     {
         _repository = repository;
         _mapper = mapper;

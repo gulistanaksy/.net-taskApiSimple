@@ -2,6 +2,7 @@
 bin/
 obj/
 migrations/
+not.txt
 
 # Visual Studio dosyaları
 .vs/
