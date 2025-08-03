@@ -19,6 +19,7 @@ builder.Services.AddAutoMapper(typeof(TaskMappingProfile));
 //“Biri ITaskRepository isterse, ona TaskRepository ver.”
 builder.Services.AddScoped<ITaskRepository, TaskRepository>();
 builder.Services.AddScoped<ITaskService, TaskService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 
 // AppDbContext içerisine options ile sql url veridli

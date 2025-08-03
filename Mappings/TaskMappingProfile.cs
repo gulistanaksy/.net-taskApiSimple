@@ -10,6 +10,8 @@ public class TaskMappingProfile : Profile
     {
         CreateMap<TaskItem, TaskResponseDto>()
             .ForMember(dest => dest.Username, opt => opt.MapFrom(src => src.User!.Username));
+
+        CreateMap<User, UserResponseDto>();
     }
 }
 
