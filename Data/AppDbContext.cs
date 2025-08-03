@@ -9,4 +9,6 @@ public class AppDbContext : DbContext
         : base(options) { }
 
     public DbSet<TaskItem> Tasks => Set<TaskItem>();
+    public DbSet<User> Users => Set<User>();
+
 }

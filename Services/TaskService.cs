@@ -35,9 +35,9 @@ public class TaskService : ITaskService
 
 
 
-    public TaskResponseDto CreateTask(string title)
+    public TaskResponseDto CreateTask(string title, int userId)
     {
-        var task = _repository.Add(title);
+        var task = _repository.Add(title, userId);
         return _mapper.Map<TaskResponseDto>(task);
     }
 

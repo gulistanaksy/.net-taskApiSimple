@@ -38,8 +38,9 @@ public class TasksController : ControllerBase
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
 
-        var task = _service.CreateTask(createDto.Title);
-        return Ok(task);
+        var task = _service.CreateTask(createDto.Title, createDto.UserId);
+        return Ok(task);  
+        // return CreatedAtAction(nameof(_service.GetTaskById), new { id = task.Id }, task);
     }
 
 

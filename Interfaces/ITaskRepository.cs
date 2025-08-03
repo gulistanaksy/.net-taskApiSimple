@@ -11,7 +11,7 @@ public interface ITaskRepository
 
     //Bulursa TaskItem, bulamazsa null dönebilir (bu yüzden TaskItem? nullable).
     TaskItem? GetById(int id);
-    TaskItem Add(string title);
+    TaskItem Add(string title, int userId);
     bool Update(int id, string title, bool isCompleted);
     bool Delete(int id);
 }
