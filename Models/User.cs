@@ -8,6 +8,9 @@ public class User
 
     [Required]
     public string Username { get; set; } = null!;
+    [Required]
+    public string PasswordHash { get; set; } = null!;
+
 
     // navigation property
     // = new(); ifadesi, bu listenin boş liste ile başlatıldığını gösterir (null değil).

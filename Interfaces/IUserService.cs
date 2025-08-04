@@ -6,4 +6,7 @@ public interface IUserService
 {
     List<UserResponseDto> GetAll();
     UserResponseDto Create(CreateUserDto dto);
+
+    // Yeni eklenen login metodu:
+    string? Login(string username, string password);
 }

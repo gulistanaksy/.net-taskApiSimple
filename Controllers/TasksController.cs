@@ -3,7 +3,7 @@ using _net_taskApiSimple.Models;
 using _net_taskApiSimple.Services;
 using _net_taskApiSimple.DTOs;
 using _net_taskApiSimple.Interfaces;
-
+using Microsoft.AspNetCore.Authorization;
 namespace _net_taskApiSimple.Controllers;
 
 [ApiController]  // Bu attribute, sınıfın bir API controller olduğunu belirtir.
@@ -17,6 +17,7 @@ public class TasksController : ControllerBase
         _service = service;
     }
 
+    [Authorize]
     [HttpGet]
     public IActionResult GetAll()
     {

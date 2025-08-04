@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace _net_taskApiSimple.DTOs;
 
-public class CreateUserDto
+public class UserLoginDto
 {
     [Required]
     public string Username { get; set; } = null!;
