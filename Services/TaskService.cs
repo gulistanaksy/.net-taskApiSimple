@@ -34,7 +34,12 @@ public class TaskService : ITaskService
     }
 
 
-
+    public List<TaskResponseDto> GetTasksByUser(int userId)
+    {
+        var tasks = _repository.GetAllByUserId(userId);
+        return _mapper.Map<List<TaskResponseDto>>(tasks);
+    }
+    
     public TaskResponseDto CreateTask(string title, int userId)
     {
         var task = _repository.Add(title, userId);

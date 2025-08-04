@@ -3,8 +3,10 @@ using _net_taskApiSimple.Models;
 using _net_taskApiSimple.Services;
 using _net_taskApiSimple.DTOs;
 using _net_taskApiSimple.Interfaces;
-using Microsoft.AspNetCore.Authorization;
 namespace _net_taskApiSimple.Controllers;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+
 
 [ApiController]  // Bu attribute, sınıfın bir API controller olduğunu belirtir.
 [Route("api/[controller]")]  // api/tasks
@@ -21,9 +23,15 @@ public class TasksController : ControllerBase
     [HttpGet]
     public IActionResult GetAll()
     {
-        var tasks = _service.GetTasks();
+        var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+        if (userIdClaim == null) return Unauthorized();
+
+        int userId = int.Parse(userIdClaim.Value);
+
+        var tasks = _service.GetTasksByUser(userId);
         return Ok(tasks);
     }
+
 
     [HttpGet("{id}")]
     public IActionResult GetById(int id)
@@ -33,15 +41,21 @@ public class TasksController : ControllerBase
         return Ok(task);
     }
 
+    [Authorize]
     [HttpPost]
     public IActionResult Create([FromBody] CreateTaskDto createDto)
     {
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
 
-        var task = _service.CreateTask(createDto.Title, createDto.UserId);
-        return Ok(task);  
-        // return CreatedAtAction(nameof(_service.GetTaskById), new { id = task.Id }, task);
+        // Token'dan UserId'yi al
+        var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+        if (userIdClaim == null) return Unauthorized();
+
+        int userId = int.Parse(userIdClaim.Value);
+
+        var task = _service.CreateTask(createDto.Title, userId);
+        return Ok(task);
     }
 
 

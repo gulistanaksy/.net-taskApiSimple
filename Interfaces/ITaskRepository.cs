@@ -14,4 +14,5 @@ public interface ITaskRepository
     TaskItem Add(string title, int userId);
     bool Update(int id, string title, bool isCompleted);
     bool Delete(int id);
+    List<TaskItem> GetAllByUserId(int userId);
 }

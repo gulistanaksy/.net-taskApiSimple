@@ -12,4 +12,6 @@ public interface ITaskService
     TaskResponseDto CreateTask(string title, int userId);
     bool UpdateTask(int id, string title, bool isCompleted);
     bool DeleteTask(int id);
+    List<TaskResponseDto> GetTasksByUser(int userId);
+
 }

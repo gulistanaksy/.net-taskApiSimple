@@ -28,6 +28,13 @@ public class TaskRepository : ITaskRepository
             .Include(t => t.User)
             .FirstOrDefault(t => t.Id == id);
     }
+    public List<TaskItem> GetAllByUserId(int userId)
+    {
+        return _context.Tasks
+            .Include(t => t.User)
+            .Where(t => t.UserId == userId)
+            .ToList();
+    }
 
     public TaskItem Add(string title, int userId)
     {
@@ -37,10 +44,10 @@ public class TaskRepository : ITaskRepository
             IsCompleted = false,
             UserId = userId
         };
-    
+
         _context.Tasks.Add(task);
         _context.SaveChanges();
-    
+
         return task;
     }
 
