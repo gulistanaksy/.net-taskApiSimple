@@ -48,13 +48,22 @@ public class TaskService : ITaskService
 
 
 
-    public bool UpdateTask(int id, string title, bool isCompleted)
+    public bool UpdateTask(int id, string title, bool isCompleted, int userId)
     {
+        var task = _repository.GetById(id);
+        if (task == null || task.UserId != userId)
+            return false;
+    
         return _repository.Update(id, title, isCompleted);
     }
-
-    public bool DeleteTask(int id)
+    
+    public bool DeleteTask(int id, int userId)
     {
+        var task = _repository.GetById(id);
+        if (task == null || task.UserId != userId)
+            return false;
+    
         return _repository.Delete(id);
     }
+    
 }

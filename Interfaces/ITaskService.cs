@@ -10,8 +10,9 @@ public interface ITaskService
     List<TaskResponseDto> GetTasks();
     TaskResponseDto? GetTaskById(int id);
     TaskResponseDto CreateTask(string title, int userId);
-    bool UpdateTask(int id, string title, bool isCompleted);
-    bool DeleteTask(int id);
+    bool UpdateTask(int id, string title, bool isCompleted, int userId);
+    bool DeleteTask(int id, int userId);
+
     List<TaskResponseDto> GetTasksByUser(int userId);
 
 }

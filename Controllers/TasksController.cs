@@ -59,26 +59,37 @@ public class TasksController : ControllerBase
     }
 
 
+    [Authorize]
     [HttpPut("{id}")]
     public IActionResult Update(int id, [FromBody] UpdateTaskDto updateDto)
     {
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
-
-        var success = _service.UpdateTask(id, updateDto.Title, updateDto.IsCompleted);
-        if (!success) return NotFound();
-
+    
+        var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+        if (userIdClaim == null) return Unauthorized();
+        int userId = int.Parse(userIdClaim.Value);
+    
+        var success = _service.UpdateTask(id, updateDto.Title, updateDto.IsCompleted, userId);
+        if (!success) return Forbid(); // Yetkisiz ise Forbid (403)
+    
         return NoContent();
     }
 
 
 
+    [Authorize]
     [HttpDelete("{id}")]
     public IActionResult Delete(int id)
     {
-        var success = _service.DeleteTask(id);
-        if (!success) return NotFound();
+        var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+        if (userIdClaim == null) return Unauthorized();
+        int userId = int.Parse(userIdClaim.Value);
+
+        var success = _service.DeleteTask(id, userId);
+        if (!success) return Forbid(); // Yetki yoksa 403
 
         return NoContent();
     }
+
 }
